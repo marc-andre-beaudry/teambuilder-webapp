@@ -23,7 +23,12 @@ public final class ConvertUtils {
 	}
 
 	public static TeamDto teamConverter(Team team) {
-		// TODO Auto-generated method stub
-		return null;
+		TeamDto dto = new TeamDto();
+		dto.setId(team.getId());
+		dto.setAbb(team.getAbb());
+		dto.setIsNhl(team.getIsNhl());
+		dto.setIsPublic(team.getIsPublic());
+		dto.setName(team.getName());
+		return dto;
 	}
 }
