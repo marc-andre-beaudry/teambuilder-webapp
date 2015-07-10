@@ -27,44 +27,42 @@ public class Application {
 
 	@Bean
 	CommandLineRunner init(final TeamRepository teamRepository, final PlayerRepository playerRepository) {
-		return new CommandLineRunner() {
 
-			@Override
-			public void run(String... args) throws Exception {
-				InputStream is = TestApplication.class.getResourceAsStream("seed.json");
-				ObjectMapper mapper = new ObjectMapper();
+		return arg -> {
 
-				List<PlayerDto> dtos = mapper.readValue(is, new TypeReference<List<PlayerDto>>() {
-				});
+			InputStream is = TestApplication.class.getResourceAsStream("seed.json");
+			ObjectMapper mapper = new ObjectMapper();
 
-				Map<String, Team> teamMap = new HashMap<>();
+			List<PlayerDto> dtos = mapper.readValue(is, new TypeReference<List<PlayerDto>>() {
+			});
 
-				int teamIds = -1;
-				for (PlayerDto dto : dtos) {
-					Team team = null;
-					if (!teamMap.containsKey(dto.getTeam())) {
-						team = new Team();
-						team.setId(teamIds--);
-						team.setAbb(dto.getTeamAbb());
-						team.setName(dto.getTeam());
-						team.setIsPublic(true);
-						team.setIsNhl(true);
-						team = teamRepository.saveAndFlush(team);
-						teamMap.put(dto.getTeam(), team);
-					} else {
-						team = teamMap.get(dto.getTeam());
-					}
-					Player player = new Player();
-					player.setFirstName(dto.getFirstName());
-					player.setLastName(dto.getLastName());
-					player.setSalary(dto.getSalary());
-					player.setPosition(dto.getPosition());
-					player.setTeam(team);
-					playerRepository.saveAndFlush(player);
+			Map<String, Team> teamMap = new HashMap<>();
+
+			int teamIds = -1;
+			for (PlayerDto dto : dtos) {
+				Team team = null;
+				if (!teamMap.containsKey(dto.getTeam())) {
+					team = new Team();
+					team.setId(teamIds--);
+					team.setAbb(dto.getTeamAbb());
+					team.setName(dto.getTeam());
+					team.setIsPublic(true);
+					team.setIsNhl(true);
+					team = teamRepository.saveAndFlush(team);
+					teamMap.put(dto.getTeam(), team);
+				} else {
+					team = teamMap.get(dto.getTeam());
 				}
-
-				System.out.println("Init done!");
+				Player player = new Player();
+				player.setFirstName(dto.getFirstName());
+				player.setLastName(dto.getLastName());
+				player.setSalary(dto.getSalary());
+				player.setPosition(dto.getPosition());
+				player.setTeam(team);
+				playerRepository.saveAndFlush(player);
 			}
+
+			System.out.println("Init done!");
 		};
 	}
 
