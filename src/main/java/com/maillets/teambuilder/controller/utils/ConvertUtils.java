@@ -1,6 +1,7 @@
 package com.maillets.teambuilder.controller.utils;
 
 import com.maillets.teambuilder.dto.PlayerDto;
+import com.maillets.teambuilder.dto.TeamDto;
 import com.maillets.teambuilder.entities.Player;
 import com.maillets.teambuilder.entities.Team;
 
@@ -19,5 +20,10 @@ public final class ConvertUtils {
 			dto.setTeamAbb(player.getTeam().getAbb());
 		}
 		return dto;
+	}
+
+	public static TeamDto teamConverter(Team team) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
