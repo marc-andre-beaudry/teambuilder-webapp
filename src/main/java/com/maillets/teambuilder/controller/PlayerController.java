@@ -24,7 +24,7 @@ public class PlayerController {
 	private PlayerRepository playerRepository;
 
 	@RequestMapping(value = "", method = { RequestMethod.GET })
-	public List<PlayerDto> getCompetenceTrees() {
+	public List<PlayerDto> getPlayers() {
 		List<Player> players = playerRepository.findAll();
 		List<PlayerDto> dtos = new ArrayList<>();
 		for (Player player : players) {
@@ -34,7 +34,7 @@ public class PlayerController {
 	}
 
 	@RequestMapping(value = "/{id}", method = { RequestMethod.GET })
-	public PlayerDto getCompetenceTree(@PathVariable(value = "id") String id) {
+	public PlayerDto getPlayer(@PathVariable(value = "id") String id) {
 		Player player = validateAndGetPlayer(id);
 		return ConvertUtils.playerConverter(player);
 	}
@@ -47,10 +47,10 @@ public class PlayerController {
 			throw new BadRequestException();
 		}
 
-		Player competence = playerRepository.findOne(parsedInt);
-		if (competence == null) {
+		Player player = playerRepository.findOne(parsedInt);
+		if (player == null) {
 			throw new EntityNotFoundException(id);
 		}
-		return competence;
+		return player;
 	}
 }
