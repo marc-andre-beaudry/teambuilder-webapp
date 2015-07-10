@@ -1,7 +1,7 @@
 package com.maillets.teambuilder.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,10 +26,7 @@ public class PlayerController {
 	@RequestMapping(value = "", method = { RequestMethod.GET })
 	public List<PlayerDto> getPlayers() {
 		List<Player> players = playerRepository.findAll();
-		List<PlayerDto> dtos = new ArrayList<>();
-		for (Player player : players) {
-			dtos.add(ConvertUtils.playerConverter(player));
-		}
+		List<PlayerDto> dtos = players.stream().map(player -> ConvertUtils.playerConverter(player)).collect(Collectors.toList());
 		return dtos;
 	}
 

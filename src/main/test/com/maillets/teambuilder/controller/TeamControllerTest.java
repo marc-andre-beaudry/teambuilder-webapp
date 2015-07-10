@@ -53,4 +53,14 @@ public class TeamControllerTest extends BaseRestControllerTest {
 	public void get_id_with_invalid_id_format_then_bad_request() throws Exception {
 		mockMvc.perform(get("/teams/one")).andExpect(status().isBadRequest());
 	}
+
+	@Test
+	public void get_id_treelevels_on_empty_repo_then_is_not_found() throws Exception {
+		mockMvc.perform(get("/teams/1/players")).andExpect(status().isNotFound());
+	}
+
+	@Test
+	public void get_id_treelevels_with_invalid_id_format_then_bad_request() throws Exception {
+		mockMvc.perform(get("/teams/one/players")).andExpect(status().isBadRequest());
+	}
 }

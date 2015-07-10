@@ -25,7 +25,6 @@ public class Player {
 
 	private Integer position;
 
-	@Column(nullable = false)
 	private Integer salary;
 
 	@ManyToOne(fetch = FetchType.LAZY)
