@@ -14,10 +14,10 @@ public final class ConvertUtils {
 		dto.setLastName(player.getLastName());
 		dto.setPosition(player.getPosition());
 		dto.setSalary(player.getSalary());
-		Team team = player.getTeam();
+		Team team = player.getNhlTeam();
 		if (team != null) {
-			dto.setTeam(player.getTeam().getName());
-			dto.setTeamAbb(player.getTeam().getAbb());
+			dto.setTeam(player.getNhlTeam().getName());
+			dto.setTeamAbb(player.getNhlTeam().getAbb());
 		}
 		return dto;
 	}

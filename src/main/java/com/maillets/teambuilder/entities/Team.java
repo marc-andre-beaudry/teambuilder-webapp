@@ -3,12 +3,16 @@ package com.maillets.teambuilder.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,12 +34,13 @@ public class Team {
 	@Column(nullable = false)
 	private Boolean isNhl;
 
-	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
-	private Set<Player> players;
-	
-	public Team() {
-		players = new HashSet<>();
-	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ownerId")
+	private User owner;
+
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "team_player", joinColumns = { @JoinColumn(name = "player_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "team_id", referencedColumnName = "id") })
+	private Set<Player> teamPlayers = new HashSet<Player>();
 
 	public Integer getId() {
 		return id;
@@ -77,11 +82,19 @@ public class Team {
 		this.isNhl = isNhl;
 	}
 
-	public Set<Player> getPlayers() {
-		return players;
+	public User getOwner() {
+		return owner;
 	}
 
-	public void setPlayers(Set<Player> players) {
-		this.players = players;
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+	public Set<Player> getTeamPlayers() {
+		return teamPlayers;
+	}
+
+	public void setTeamPlayers(Set<Player> teamPlayers) {
+		this.teamPlayers = teamPlayers;
 	}
 }

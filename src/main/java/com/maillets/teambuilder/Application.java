@@ -58,7 +58,7 @@ public class Application {
 				player.setLastName(dto.getLastName());
 				player.setSalary(dto.getSalary());
 				player.setPosition(dto.getPosition());
-				player.setTeam(team);
+				player.setNhlTeam(team);
 				playerRepository.saveAndFlush(player);
 			}
 

@@ -1,11 +1,15 @@
 package com.maillets.teambuilder.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -28,8 +32,11 @@ public class Player {
 	private Integer salary;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "teamId")
-	private Team team;
+	@JoinColumn(name = "nhlTeamId")
+	private Team nhlTeam;
+
+	@ManyToMany(mappedBy = "teamPlayers")
+	private Set<Team> teams = new HashSet<Team>();
 
 	public Integer getId() {
 		return id;
@@ -71,11 +78,19 @@ public class Player {
 		this.salary = salary;
 	}
 
-	public Team getTeam() {
-		return team;
+	public Team getNhlTeam() {
+		return nhlTeam;
 	}
 
-	public void setTeam(Team team) {
-		this.team = team;
+	public void setNhlTeam(Team team) {
+		this.nhlTeam = team;
+	}
+
+	public Set<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Set<Team> customTeams) {
+		this.teams = customTeams;
 	}
 }
