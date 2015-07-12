@@ -60,31 +60,24 @@ public class PlayerControllerTest extends BaseRestControllerTest {
 
 	@Test
 	public void get_all_on_non_empty_repo_then_is_ok() throws Exception {
-		Player player = generatePlayer("Carey", "Price");
+		Player player = TestUtils.generatePlayer("Carey", "Price");
 		playerRepository.saveAndFlush(player);
 		mockMvc.perform(get("/players")).andExpect(status().isOk());
 	}
 
 	@Test
 	public void add_player_then_get_all_then_size_is_one() throws Exception {
-		Player player = generatePlayer("Carey", "Price");
+		Player player = TestUtils.generatePlayer("Carey", "Price");
 		playerRepository.saveAndFlush(player);
 		mockMvc.perform(get("/players")).andExpect(content().contentType(contentType)).andExpect(jsonPath("$", hasSize(1)));
 	}
 
 	@Test
 	public void add_two_player_then_get_all_then_size_is_two() throws Exception {
-		Player player1 = generatePlayer("Carey", "Price");
-		Player player2 = generatePlayer("Max", "Pacioretty");
+		Player player1 = TestUtils.generatePlayer("Carey", "Price");
+		Player player2 = TestUtils.generatePlayer("Max", "Pacioretty");
 		playerRepository.saveAndFlush(player1);
 		playerRepository.saveAndFlush(player2);
 		mockMvc.perform(get("/players")).andExpect(content().contentType(contentType)).andExpect(jsonPath("$", hasSize(2)));
-	}
-
-	private static Player generatePlayer(String firstName, String lastName) {
-		Player player = new Player();
-		player.setFirstName(firstName);
-		player.setLastName(lastName);
-		return player;
 	}
 }
