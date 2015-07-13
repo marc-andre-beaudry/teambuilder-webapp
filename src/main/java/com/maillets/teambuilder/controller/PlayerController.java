@@ -26,7 +26,9 @@ public class PlayerController {
 	@RequestMapping(value = "", method = { RequestMethod.GET })
 	public List<PlayerDto> getPlayers() {
 		List<Player> players = playerRepository.findAll();
-		List<PlayerDto> dtos = players.stream().map(player -> ConvertUtils.playerConverter(player)).collect(Collectors.toList());
+		List<PlayerDto> dtos = players.stream()
+				.map(player -> ConvertUtils.playerConverter(player))
+				.collect(Collectors.toList());
 		return dtos;
 	}
 

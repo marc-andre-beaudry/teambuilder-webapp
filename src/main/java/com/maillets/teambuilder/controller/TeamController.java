@@ -46,7 +46,9 @@ public class TeamController {
 	@RequestMapping(value = TEAM_BASE_PATH, method = { RequestMethod.GET })
 	public List<TeamDto> getTeams() {
 		List<Team> teams = teamRepository.findAll();
-		List<TeamDto> dtos = teams.stream().map(team -> ConvertUtils.teamConverter(team)).collect(Collectors.toList());
+		List<TeamDto> dtos = teams.stream()
+				.map(team -> ConvertUtils.teamConverter(team))
+				.collect(Collectors.toList());
 		return dtos;
 	}
 
@@ -59,12 +61,14 @@ public class TeamController {
 	@RequestMapping(value = TEAM_PLAYERS_PATH, method = { RequestMethod.GET })
 	public List<PlayerDto> getTeamPlayers(@PathVariable(value = TEAM_ID_PATH_VARIABLE) String id) {
 		Team team = validateAndGetTeam(id);
-		List<PlayerDto> dtos = team.getTeamPlayers().stream().map(player -> ConvertUtils.playerConverter(player)).collect(Collectors.toList());
+		List<PlayerDto> dtos = team.getTeamPlayers().stream()
+				.map(player -> ConvertUtils.playerConverter(player))
+				.collect(Collectors.toList());
 		return dtos;
 	}
 
 	@RequestMapping(value = TEAM_BASE_PATH, method = { RequestMethod.POST })
-	public Integer createTeam(TeamDto dto) {
+	public Integer createTeam(@RequestBody TeamDto dto) {
 
 		// We do not accept id when we send a POST
 		if (dto.getId() != null) {

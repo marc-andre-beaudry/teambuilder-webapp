@@ -7,8 +7,8 @@ public class TeamDto {
 	private String abb;
 	private Integer ownerId;
 	private Integer ownerUserName;
-	private Boolean isPublic;
-	private Boolean isNhl;
+	private boolean isPublic;
+	private boolean isNhl;
 
 	public TeamDto() {
 	}
@@ -53,19 +53,19 @@ public class TeamDto {
 		this.ownerUserName = ownerUserName;
 	}
 
-	public Boolean getIsPublic() {
+	public boolean getIsPublic() {
 		return isPublic;
 	}
 
-	public void setIsPublic(Boolean isPublic) {
+	public void setIsPublic(boolean isPublic) {
 		this.isPublic = isPublic;
 	}
 
-	public Boolean getIsNhl() {
+	public boolean getIsNhl() {
 		return isNhl;
 	}
 
-	public void setIsNhl(Boolean isNhl) {
+	public void setIsNhl(boolean isNhl) {
 		this.isNhl = isNhl;
 	}
 }

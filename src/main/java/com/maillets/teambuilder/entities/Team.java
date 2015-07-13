@@ -29,10 +29,10 @@ public class Team {
 	private String abb;
 
 	@Column(nullable = false)
-	private Boolean isPublic;
+	private boolean isPublic;
 
 	@Column(nullable = false)
-	private Boolean isNhl;
+	private boolean isNhl;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ownerId")
